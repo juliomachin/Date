@@ -130,9 +130,6 @@ public class Date
 
 
 
-	
-
-
 	//Inicio de la modificación Apartado030102 Ejercicio 1
 
 
@@ -299,8 +296,220 @@ public String getSeason()
 	}
 }
 
-
 	//Fin de la modificación Apartado030102 Ejercicio 3
+
+
+
+	//Inicio de la modificación Apartado030103 Ejercicio 1
+	
+
+	
+public void getMonthsLeft() 
+{
+	System.out.println("Meses que quedan: ");
+	int i;
+	for (i = month +1; i <= 12; i++)
+	{
+		String ms = "";
+		switch(i)
+		{
+			case 1:
+			mes = "Enero";
+			break;
+	
+			case 2:
+			mes = "February";
+			break;
+
+			case 3:
+			mes = "March";
+			break;
+
+			case 4:
+			mes = "April";
+			break;
+			
+			case 5:
+			mes = "May";
+			break;
+
+			case 6:
+			mes = "June";
+			break;
+
+			case 7:
+			mes = "July";
+			break;
+
+			case 8:
+			mes = "August";
+			break;
+
+			case 9:
+			mes = "September";
+			break;
+
+			case 10:
+			mes = "October";
+			break;
+
+			case 11:
+			mes = "Novemebr";
+			break;
+
+			case 12:
+			mes = "December";
+			break;
+		}
+		System.out.println(month);
+	}
+	System.out.println();
+}
+
+
+	//Fin de la modificación Apartado030103 Ejercicio 1
+
+
+
+	//Inicio de la modificación Apartado030103 Ejercicio 2
+
+
+
+
+
+
+	//Fin de la modificación Apartado030103 Ejercicio 2
+
+
+
+
+
+	//Inicio de la modificación Apartado030103 Ejercicio 3
+
+
+
+
+
+
+	//Fin de la modificación Apartado030103 Ejercicio 3
+
+
+
+
+
+
+
+
+
+
+	//Inicio de la modificación Apartado030103 Ejercicio 4
+	
+public void getMonthsLeft() 
+{
+	System.out.println("Meses que tienen los mismos dias: ");
+	int (day, month, year);
+	int i;
+	for (i = month +1; i <= 12; i++)
+	{
+		String ms = "";
+		switch(i)
+		{
+
+
+
+
+	//Fin de la modificación Apartado030103 Ejercicio 4
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
