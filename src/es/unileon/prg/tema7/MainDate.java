@@ -17,8 +17,9 @@ public class MainDate
 		System.out.println(date1.isDayRigth());
 		System.out.println(date1.getSeason());
 		System.out.println(date1.getMonthsLeft());
-		System.out.println(date1.printDate());
-		System.out.println(date1.sameDays());
-		System.out.println(date1.getDaysLeft());
+		System.out.println(date.sameDaysMonth());
+		System.out.println(date.untilTheEnd());
+		System.out.println(date.untilTheFirst());
+		System.out.println(date.theSameDate());
 	}
 }
