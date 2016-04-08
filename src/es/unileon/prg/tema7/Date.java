@@ -253,119 +253,14 @@ public String ()
 
 	//Inicio de la modificación Apartado030102 Ejercicio 3
  
-
-
-public String getSeason()
-{
-	String season = new String ("")
-	{
-		switch (season)
-		{	
-		System.out.print("Introduzca un mes del año: ");
-			int day = 0;
-			int month = 0;
-		if((month == December && day >= 21)||(month == January) || (month == February) || (month == March && day << 21))
-		{
-		    season = "Winter";
-		    System.out.println(season);
-		}
-
-		if ((month == March && day >= 21) || (month == April) || (month == May) || (month == June && day << 21))
-		{
-		    season = "Spring";
-		    System.out.println(season);
-		}
-
-		if ((month == June && day >= 21) || (month == July) || (month == August) || (month == September && day << 21))
-		{
-		    season = "Summer";
-		    System.out.println(season);
-		}
-
-		if ((month == September && day >= 21) || (month == October) || (November == May) || (month == December && day << 21))
-		{
-			season = "Autumn";
-			System.out.println(season);
-		}
-
-
-	  	if (day < 1 || day > 31)
-		{
-			System.out.printl("Error dia incorrecto");
-		}
+public String getMonthLeft(){
+	StringBuffer output=new StringBuffer();
+	int month=getMonth();
+	output.append("The remaining months are: \n");
+	for(int i=month+1;i<=12;i++){
+		output.append(getMonthName(i)+"\n");
 	}
-}
-
-	//Fin de la modificación Apartado030102 Ejercicio 3
-
-
-
-	//Inicio de la modificación Apartado030103 Ejercicio 1
-	
-
-	
-public void getMonthsLeft() 
-{
-	System.out.println("Meses que quedan: ");
-	int i;
-	for (i = month +1; i <= 12; i++)
-	{
-		String ms = "";
-		switch(i)
-		{
-			case 1:
-			mes = "Enero";
-			break;
-	
-			case 2:
-			mes = "February";
-			break;
-
-			case 3:
-			mes = "March";
-			break;
-
-			case 4:
-			mes = "April";
-			break;
-			
-			case 5:
-			mes = "May";
-			break;
-
-			case 6:
-			mes = "June";
-			break;
-
-			case 7:
-			mes = "July";
-			break;
-
-			case 8:
-			mes = "August";
-			break;
-
-			case 9:
-			mes = "September";
-			break;
-
-			case 10:
-			mes = "October";
-			break;
-
-			case 11:
-			mes = "Novemebr";
-			break;
-
-			case 12:
-			mes = "December";
-			break;
-		}
-		System.out.println(month);
-	}
-	System.out.println();
-}
-
+	return output.toString();
 
 	//Fin de la modificación Apartado030103 Ejercicio 1
 
@@ -373,10 +268,11 @@ public void getMonthsLeft()
 
 	//Inicio de la modificación Apartado030103 Ejercicio 2
 
-
-
-
-
+public String printDate(){
+	StringBuffer date=new StringBuffer();
+	date.append(getDay()+","+getMonthName(getMonth())+","+getYear());
+	return date.toString();
+}
 
 	//Fin de la modificación Apartado030103 Ejercicio 2
 
@@ -386,45 +282,59 @@ public void getMonthsLeft()
 
 	//Inicio de la modificación Apartado030103 Ejercicio 3
 
-
-
-
+public String untilTheEnd(){
+	int i;
+	StringBuffer dates=new StringBuffer();
+	dates.append("The days to the end of the month;\n");
+	for(i=getDay()+1;i<=daysOfMonth(getMonth());i++){
+		dates.append(i+","+getMonthName(getMonth())+","+getYear()+"\n");
+	}
+	return dates.toString();
+}
 
 
 	//Fin de la modificación Apartado030103 Ejercicio 3
 
 
 
-
-
-
-
-
-
-
 	//Inicio de la modificación Apartado030103 Ejercicio 4
 	
-public void getMonthsLeft() 
-{
-	System.out.println("Meses que tienen los mismos dias: ");
-	int (day, month, year);
+public String sameDaysMonth(){
+	StringBuffer months=new StringBuffer();;
+	int days=daysOfMonth(getMonth());
 	int i;
-	for (i = month +1; i <= 12; i++)
-	{
-		String ms = "";
-		switch(i)
-		{
-
-
-
+	months.append("The months with same days are: \n");
+	for(i=1;i<=12;i++){
+		if(daysOfMonth(i)==days){
+			months.append(getMonthName(i)+", ");	
+		}
+	}
+	return months.toString();
 
 	//Fin de la modificación Apartado030103 Ejercicio 4
 
+	//Inicio de la modificación Apartado030103 Ejercicio 5
 
+public String untilTheFirst(){
+	StringBuffer dates = new StringBuffer();
+	int i, j, k;
+	dates.append("The days since the first day of the year:\n");
+	for(i=1;i<=getMonth();i++){
+		if(i!=getMonth()){
+			for(j=1;j<=daysOfMonth(i);j++){
+				dates.append(j+","+getMonthName(i)+","+getYear()+"\n");
+			}
+		}
+		else{
+			for(k=1;k<getDay();k++){
+				dates.append(k+","+getMonthName(i)+","+getYear()+"\n");
+			}
+		}
+	}
+	return dates.toString();
+}
 
-
-
-
+	//Fin de la modificación Apartado030103 Ejercicio 5
 
 
 
