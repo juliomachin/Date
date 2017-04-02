@@ -1,426 +1,408 @@
-package es.unileon.prg.tema7;
+package es.unileon.prg1.date;
 
+/////////////////////////////
+// JAVADOC IS MISSING!!!!  //
+// PLEASE, COMPLETE IT     //
+/////////////////////////////
 
-public class Date
-{
+public class Date {
 
-	private int year;
-	private int month;
 	private int day;
+	private int month;
+	private int year;
 	
-
-	//Inicio de la modificación Apartado030101 Ejercicio 1
+	public Date(){
+		this.day = 1;
+		this.month = 1;
+		this.year = 2016;
+	}
 	
-	public Date(int day, int month, int year)
-	{
-		today = new Date("fecha");
-		this.day = day;
-		this.month = month;
-		this.year = year;
-		this.dayofMonth = month; // MAL. No es un metodo
+	public Date(int day, int month, int year) throws DateException{
+		StringBuffer message = new StringBuffer();
 
-		Date(int day, int month, int year) throws Excepcion
-		{
-			StringBuffer msg = new StringBuffer();  //Almacenar un nuevo mensaje.
-			if(day > 31 || day <= 0)
-			{
-				msg.appened("Error. Introduce un dia correcto");
+		if ( day <= 0){
+			message.append("Negative days are not allowed - wrong value for day: " + day + "\n");
+		}
+		if ( month <= 0 ){
+			message.append("Negative months are not allowed - wrong value for month: " + month + "\n");			
+		} else {
+			if ( month > 12 ){
+				message.append("There are only 12 months - wrong value for month: " + month + "\n");							
+			} else {
+				if ( day > this.daysOfMonth(month) ){
+					message.append("Day/Month wrong combination: " + day + "/" + month + "\n");						
+				}				
 			}
-			if(month <= 0 || month > 12)
-			{
-				msg.appened("Error. Introduce un mes correcto");		
-			}
-			if(day > this.dayofMonth(month))
-			{
-				msg.appened("Error. Introduce el dia del mes correcto");
-			}
-			if(year < 0)
-			{
-				msg.appened("Error. Introduce un año correcto");	
-			}
-			if(msg.length()!=0)
-			{
-				throw new Excepcion(msg.toString());	
-			}else
-			{
-				this.day = day;
-				this.month = month;
-				this.year = year;
+		}
+		if ( year < 0 ){
+			message.append("Negative years are not allowed - wrong value for year: " + year + "\n");			
 		}
 		
-	}	
+		if ( message.length() != 0){
+			throw new DateException(message.toString());
+		} else {
+			this.day = day;
+			this.month = month;
+			this.year = year;
+		}
+	}
+	
+	///////////////////////
+	// CLONE CONSTRUCTOR //
+	///////////////////////
+	public Date(Date another){
+		this.day = another.getDay();
+		this.month = another.getMonth();
+		this.year = another.getYear();
+	}
+	
+	public int getDay() {
+		return day;
+	}
+
+	public void setDay(int day) throws DateException{
+		if ( day <= 0) {
+			throw new DateException("Negative days are not allowed - wrong value for day: " + day + "\n");			
+		} else {
+			if ( !this.isDayRight(day) ){
+				throw new DateException("Day/Month wrong combination: " + day + "/" + this.month + "\n");
+			} else {
+				this.day = day;
+			}
+		}
+	}
+
+	public int getMonth() {
+		return month;
+	}
+
+	public void setMonth(int month) throws DateException{
+		if ( month <= 0) {
+			throw new DateException("Negative months are not allowed - wrong value for month: " + month + "\n");			
+		} else {
+			if ( month > 12 ){
+				throw new DateException("There are only 12 months - wrong value for month: " + month + "\n");
+			} else {
+				this.month = month;
+			}
+		}
+	}
+
+	public int getYear() {
+		return year;
+	}
+
+	public void setYear(int year) throws DateException{
+		if ( year < 0) {
+			throw new DateException("Negative years are not allowed - wrong value for year: " + year + "\n");			
+		} else {
+			this.year = year;
+		}
+	}
+	
+	public Date tomorrow(){
+		Date tomorrow = null;
+		int d, m, y;
+				
+		d = this.day;
+		m = this.month;
+		y = this.year;
 		
-	public int getDay()
-	{
-		return this.day;
-	}
-	public int getMonth()
-	{
-		return this.month;
-	}
-	public int getYear()
-	{
-		return this.year;
-	}
-	void setDay(int Day)
-	{
-		this.day = day;
-	}
-	void setMonth(int Month)
-	{
-		this.month;
-	}
-	void setYear(int Year)
-	{
-		this.year;
+		d++;
+		if ( d > this.daysOfMonth(month) ) {
+			d = 1;
+			m++;
+			if ( m > 12 ) {
+				m = 1;
+				y++;
+			}	
+		}
+		
+		try{
+			tomorrow = new Date(d, m, y);
+		} catch (DateException e){
+			System.err.println("Date.tomorrow: " + e.getMessage());
+		}
+
+		return tomorrow;
 	}
 
-	public boolean isSameYear(Date otherDate)
-	{
-		boolean result = false;
-	}
-	if(this.year == otherDate.getYear())
-	{
-		v_return = time;	
-	}	
-	return v_return;		
+	//////////////////////////////////////
+	// CONDITIONAL STATEMENTS EXERCISES //
+	//         if-then-else             //
+	//////////////////////////////////////
+	
+	public boolean isSameDay(Date other){
+		// WRONG SINTAX OF THE IF-STATEMENT
+		if ( this.day == other.getDay() )
+			return true;
+		else
+			return false;
 	}
 	
-
-
-	public boolean isSameMonth(Date otherDate)
-	{
-		boolean result = false;
-	}
-	if(this.year == otherDate.getMonth())
-	{
-		v_return = time;	
-	}	
-	return v_return;		
+	public boolean isSameMonth(Date other){
+		// RIGHT SINTAX OF THE IF-STATEMENT
+		if ( this.month == other.getMonth() ) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
-	
-	public boolean isSameDay(Date otherDate)
-	{
-		boolean result = false;
+	public boolean isSameYear(Date other){
+		// SOLUTION WITHOUT IF-STATEMENT
+		return this.year == other.getYear();
 	}
-	if(this.year == otherDate.getDay())
-	{
-		v_return = time;	
-	}	
-	return v_return;		
+
+	public boolean isSame (Date other){
+		return this.isSameDay(other) && this.isSameMonth(other) && this.isSameYear(other);
 	}
 	
+	//////////////////////////////////////
+	// CONDITIONAL STATEMENTS EXERCISES //
+	//            switch                //
+	//////////////////////////////////////
 
-	public boolean isSame(Date otherDate)
-	{
-		boolean result = false;
-	}
-	if(this.date == otherDate.getdate())
-	{
-		v_return = time;	
-	}	
-	return v_return;		
-	}
-
-
-
-	//Fin de la modificación Apartado030101 Ejercicio 1
-
-
-
-
-	//Inicio de la modificación Apartado030102 Ejercicio 1
-
-
-public String getMonthName()
-{
-	String mes = new String("");
-	switch (month)
-	{	
+	public String getMonthName(){
+		String name = null;
+		switch (this.month){
 		case 1:
-			mes = "January";
+			name = "January";
 			break;
 		case 2:
-			mes = "February"; 
+			name = "February";
 			break;
 		case 3:
-			mes = "March"
+			name = "March";
 			break;
 		case 4:
-			mes = "April";
+			name = "April";
 			break;
 		case 5:
-			mes = "May";
+			name = "May";
 			break;
 		case 6:
-			mes = "June";
+			name = "June";
 			break;
 		case 7:
-			mes = "July";
+			name = "July";
 			break;
 		case 8:
-			mes = "August";
+			name = "August";
 			break;
-		case 9;
-			mes = "September";
+		case 9:
+			name = "September";
 			break;
-		case 10;
-			mes = "October";
+		case 10:
+			name = "October";
 			break;
-		case 11;
-			mes = "November";	
+		case 11:
+			name = "November";
 			break;
-		case 12;
-			mes = "December";
+		case 12:
+			name = "December";
+			break;
+		}
+		return name;
+	}
+		
+	private boolean isDayRight(int day){
+		return ( ( day > 0 ) && (day <= this.daysOfMonth(this.month) ) );
+	}
+	
+	public int daysOfMonth(){
+		return this.daysOfMonth(this.month);
+	}
+	
+	private int daysOfMonth(int month){
+		int number = 0;
+		switch (month){
+		case 1: // next
+		case 3: // next
+		case 5: // next
+		case 7: // next
+		case 8: // next
+		case 10: // next
+		case 12:
+			number = 31;
+			break;
+		case 4: // next
+		case 6: // next
+		case 9: // next
+		case 11: 
+			number = 30;
+			break;
+		case 2:
+			// we do not consider leap years
+			number = 28;
 			break;
 		default:
-			System.out.println("Error");
-	
-	}
-}	
-
-	//Fin de la modificación Apartado030102 Ejercicio 1
-
-
-
-
-	//Inicio de la modificación Apartado030102 Ejercicio 2
-
-public String ()
-{
-	public int daysOfMonth = 0;
-		switch (month)
-		{
-			case 1:
-				daysOfMonth = 31;
-				break;
-			case 2:
-				daysOfMonth = 28; 
-				break;
-			case 3:
-				daysOfMonth = 31;
-				break;
-			case 4:
-				daysOfMonth = 30;
-				break;
-			case 5:
-				daysOfMonth = 31;
-				break;
-			case 6:
-				daysOfMonth = 30;
-				break;
-			case 7:
-				daysOfMonth = 31;
-				break;
-			case 8:
-				daysOfMonth = 31;
-				break;
-			case 9;
-				daysOfMonth = 30;
-				break;
-			case 10;
-				daysOfMonth = 31;
-				break;
-			case 11;
-				daysOfMonth = 30;	
-				break;
-			case 12;
-				daysOfMonth = 31;
-				break;
-			default:
-				System.out.println("Error");
-	
+			number = -1;
 		}
-	return daysOfMonth;
+		return number;
 	}
-	
-	public boolean isDayRight()
-	{
-		boolean result = false;
-		if (day <= this.daysOfMonth())
-		{
-			result = true;
+
+	public String getSeasonName(){
+		String name = null;
+		switch (this.month){
+		case 1: // next
+		case 2: // next
+		case 3: 
+			name = "Winter";
+			break;
+		case 4: // next
+		case 5: // next
+		case 6:
+			name = "Spring";
+			break;
+		case 7: // next
+		case 8: // next
+		case 9:
+			name = "Summer";
+			break;
+		case 10: // next
+		case 11: // next
+		case 12:
+			name = "Autumn";
+			break;
 		}
-		return result;
+		
+		return name;
 	}
 	
-} 	
-
-	//Fin de la modificación Apartado030102 Ejercicio 2
-
-
-
-	//Inicio de la modificación Apartado030102 Ejercicio 3
- 
-public String getMonthLeft(){
-	StringBuffer output=new StringBuffer();
-	int month=getMonth();
-	output.append("The remaining months are: \n");
-	for(int i=month+1;i<=12;i++){
-		output.append(getMonthName(i)+"\n");
-	}
-	return output.toString();
-
-	//Fin de la modificación Apartado030103 Ejercicio 1
-
-
-
-	//Inicio de la modificación Apartado030103 Ejercicio 2
-
-public String printDate(){
-	StringBuffer date=new StringBuffer();
-	date.append(getDay()+","+getMonthName(getMonth())+","+getYear());
-	return date.toString();
-}
-
-	//Fin de la modificación Apartado030103 Ejercicio 2
-
-
-
-
-
-	//Inicio de la modificación Apartado030103 Ejercicio 3
-
-public String untilTheEnd(){
-	int i;
-	StringBuffer dates=new StringBuffer();
-	dates.append("The days to the end of the month;\n");
-	for(i=getDay()+1;i<=daysOfMonth(getMonth());i++){
-		dates.append(i+","+getMonthName(getMonth())+","+getYear()+"\n");
-	}
-	return dates.toString();
-}
-
-
-	//Fin de la modificación Apartado030103 Ejercicio 3
-
-
-
-	//Inicio de la modificación Apartado030103 Ejercicio 4
+	//////////////////////////////////
+	// LOOPING STATEMENTS EXERCISES //
+	//              for             //
+	//////////////////////////////////
 	
-public String sameDaysMonth(){
-	StringBuffer months=new StringBuffer();;
-	int days=daysOfMonth(getMonth());
-	int i;
-	months.append("The months with same days are: \n");
-	for(i=1;i<=12;i++){
-		if(daysOfMonth(i)==days){
-			months.append(getMonthName(i)+", ");	
-		}
-	}
-	return months.toString();
-
-	//Fin de la modificación Apartado030103 Ejercicio 4
-
-	//Inicio de la modificación Apartado030103 Ejercicio 5
-
-public String untilTheFirst(){
-	StringBuffer dates = new StringBuffer();
-	int i, j, k;
-	dates.append("The days since the first day of the year:\n");
-	for(i=1;i<=getMonth();i++){
-		if(i!=getMonth()){
-			for(j=1;j<=daysOfMonth(i);j++){
-				dates.append(j+","+getMonthName(i)+","+getYear()+"\n");
+	public String getMonthsLeft(){
+		Date aux = new Date(this);
+		StringBuffer monthsLeft = new StringBuffer();
+		
+		try{
+			for (int i = this.month + 1; i <= 12; i++){
+				aux.setMonth(i);
+				monthsLeft.append(aux.getMonthName() + " ");
 			}
+		} catch (DateException e){
+			System.err.println("Date.getMonthsLeft: " + e.getMessage());
 		}
-		else{
-			for(k=1;k<getDay();k++){
-				dates.append(k+","+getMonthName(i)+","+getYear()+"\n");
-			}
-		}
+		return monthsLeft.toString();
 	}
-	return dates.toString();
+	
+	public String getDaysLeftOfMonth(){
+		Date aux = tomorrow();
+		StringBuffer daysLeft = new StringBuffer();
+		
+		try{
+			for (int i = aux.getDay(); isDayRight(i); i++) {
+				aux.setDay(i);
+				daysLeft.append(aux.toString() + " ");
+			}
+		} catch (DateException e){
+			System.err.println("Date.getDaysLeftOfMonth: " + e.getMessage());
+		}
+		return daysLeft.toString();
+	}
+	
+	public String getMonthsSameDays(){
+		Date aux = new Date(this);
+		StringBuffer months = new StringBuffer();
+
+		try{
+			for ( int i = 1; i <= 12; i++) {
+				aux.setMonth(i);
+				if ( aux.daysOfMonth() == this.daysOfMonth() ) {
+					months.append(aux.getMonthName() + " ");
+				}
+			}
+		} catch (DateException e){
+			System.err.println("Date.getMonthsSameDays: " + e.getMessage());
+		}
+		return months.toString();
+	}
+
+	public int daysPast(){
+		int result;
+		result = 0;
+		
+		try{
+			Date aux = new Date(1,1,this.year);
+		
+			for ( int i = 1; i < this.month; i++ ) {
+				result += aux.daysOfMonth();
+				aux.setMonth(i + 1);
+			}
+		} catch (DateException e){
+			System.err.println("Date.daysPast: " + e.getMessage());
+		}
+		
+		return result + this.day - 1;
+	}
+
+	//////////////////////////////////
+	// LOOPING STATEMENTS EXERCISES //
+	//      while / do-while        //
+	//////////////////////////////////
+	
+	public int numRandomTriesEqualDate(){
+        int tries, d, m, y;
+        tries = 0;
+        
+        try{
+        	do{
+        		m = (int) (Math.random()*12) + 1;
+        		d = (int) (Math.random()*this.daysOfMonth(m) ) + 1;
+        		y = this.year;
+        		tries++;
+        	} while ( !this.isSame(new Date(d,m,y) ) );
+		} catch (DateException e){
+			System.err.println("Date.numRandomTriesEqualsDate: " + e.getMessage());
+		}
+
+        return tries;
+    }
+	
+	private String nameOfDay(int day) {
+		String dayName;
+		switch (day) {
+		case 1: 
+			dayName = "Monday";
+			break;
+		case 2: 
+			dayName = "Tuesday";
+			break;
+		case 3: 
+			dayName = "Wednesday";
+			break;
+		case 4: 
+			dayName = "Thursday";
+			break;
+		case 5: 
+			dayName = "Friday";
+			break;
+		case 6: 
+			dayName = "Saturday";
+			break;
+		case 7: 
+			dayName = "Sunday";
+			break;
+		default:
+			dayName = "Wrong day";
+		}
+		return dayName;
+	}
+	
+	public String dayOfWeek(int firstOfJanuary){
+		int dayNumber;
+		
+		dayNumber = ( daysPast() % 7 + firstOfJanuary ) % 7;
+		
+		return nameOfDay(dayNumber);
+	}
+	
+	public String toString(){
+		return this.day + "/" + this.month + "/" + this.year;
+	}
+	
 }
-
-	//Fin de la modificación Apartado030103 Ejercicio 5
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
